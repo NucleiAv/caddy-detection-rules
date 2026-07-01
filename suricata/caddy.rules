@@ -1,0 +1,155 @@
+# Caddy web server detection rules for Suricata
+# Created by NucleiAv
+# Covers all 29 detection categories from the Wazuh v4.14.6 ruleset
+# Tested with Suricata 6.x+
+# Rule IDs: 996003 - 996032
+#
+# Suricata must have HTTP protocol inspection enabled (eve-log with http)
+# Sticky buffers used: http.uri, http.uri.raw, http.user_agent, http.method, http.header
+#
+# NOTE: http.uri        = normalized (URL-decoded) URI
+#       http.uri.raw    = raw (encoded) URI — used for encoding evasion rules
+#       http.user_agent = User-Agent header value
+#       http.method     = HTTP request method
+#       http.header     = all request headers (raw)
+
+# -------------------------------------------------------------------------
+# 996003 - Path traversal
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Path Traversal Attempt"; flow:established,to_server; http.uri.raw; pcre:"/(\.\.\x2f|\.\.\\\\|%2e%2e|%252e%252e)/i"; classtype:web-application-attack; sid:996003; rev:1; metadata:mitre_technique T1083;)
+
+# -------------------------------------------------------------------------
+# 996004 - SQL injection
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: SQL Injection Attempt"; flow:established,to_server; http.uri.raw; pcre:"/(union.+select|select.+from|insert.+into|drop.+table|(%27|')(\s|%20)*(or)(\s|%20)+|(\s|%20)(or)(\s|%20)+1(\s|%20)*(%3D|=)(\s|%20)*1)/i"; classtype:web-application-attack; sid:996004; rev:1; metadata:mitre_technique T1190;)
+
+# -------------------------------------------------------------------------
+# 996005 - Sensitive path probe
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Sensitive Path Probe"; flow:established,to_server; http.uri; pcre:"/(\/\.env$|\/\.git|\/wp-admin|\/phpmyadmin|\/admin\.php|\/config\.php|\/backup)/i"; classtype:web-application-activity; sid:996005; rev:1; metadata:mitre_technique T1595;)
+
+# -------------------------------------------------------------------------
+# 996008 - XSS attempt in URI
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: XSS Attempt in URI"; flow:established,to_server; http.uri.raw; pcre:"/(%3Cscript|<script|javascript:|onerror=|onload=|alert\(|document\.cookie|eval\()/i"; classtype:web-application-attack; sid:996008; rev:1; metadata:mitre_technique T1059.007;)
+
+# -------------------------------------------------------------------------
+# 996009 - Command injection
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Command Injection Attempt"; flow:established,to_server; http.uri.raw; pcre:"/(%7C|%60|\||\`).*?(ls|id|whoami|cat\s|wget\s|curl\s|bash|\/bin\/sh|cmd\.exe)/i"; classtype:web-application-attack; sid:996009; rev:1; metadata:mitre_technique T1059;)
+
+# -------------------------------------------------------------------------
+# 996010 - Known scanner or attack tool User-Agent
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Known Scanner or Attack Tool User-Agent"; flow:established,to_server; http.user_agent; pcre:"/(sqlmap|nikto|nmap|masscan|nuclei|gobuster|dirbuster|wfuzz|acunetix|nessus|openvas|zgrab|whatweb)/i"; classtype:web-application-activity; sid:996010; rev:1; metadata:mitre_technique T1595;)
+
+# -------------------------------------------------------------------------
+# 996011 - HTTP TRACE or TRACK method
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: HTTP TRACE or TRACK Method"; flow:established,to_server; http.method; pcre:"/^(TRACE|TRACK)$/"; classtype:attempted-recon; sid:996011; rev:1; metadata:mitre_technique T1190;)
+
+# -------------------------------------------------------------------------
+# 996012 - Log4Shell JNDI injection (checks URI and all headers)
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Log4Shell JNDI Injection in URI"; flow:established,to_server; http.uri.raw; pcre:"/(\$\{jndi:|%24%7Bjndi(?:%3A|:))/i"; classtype:attempted-admin; priority:1; sid:996012; rev:1; metadata:mitre_technique T1190;)
+alert http any any -> any any (msg:"Caddy: Log4Shell JNDI Injection in Request Headers"; flow:established,to_server; http.header; pcre:"/(\$\{jndi:|%24%7Bjndi(?:%3A|:))/i"; classtype:attempted-admin; priority:1; sid:996033; rev:1; metadata:mitre_technique T1190;)
+
+# -------------------------------------------------------------------------
+# 996013 - Sensitive file access
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Sensitive File Access Attempt"; flow:established,to_server; http.uri; pcre:"/(\/xmlrpc\.php|\/\.htaccess|\/\.htpasswd|\/wp-config\.php|\/config\.php|\/backup|\/dump\.sql|\/proc\/self|\/etc\/shadow)/i"; classtype:web-application-activity; sid:996013; rev:1; metadata:mitre_technique T1083;)
+
+# -------------------------------------------------------------------------
+# 996014 - Credential or private key file access
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Credential or Private Key File Access"; flow:established,to_server; http.uri; pcre:"/(\/\.env(\.|$|\/)|\/id_rsa|\/id_dsa|\/id_ed25519|\/id_ecdsa|credentials?\.json|credentials?\.xml|secrets?\.json|secrets?\.ya?ml|jwt\.(pem|secret)|private\.key|oauth\.json|token\.json|authorized_keys|known_hosts|\.p12$|\.pfx$|\.pem$|\.key$)/i"; classtype:web-application-attack; sid:996014; rev:1; metadata:mitre_technique T1552.001;)
+
+# -------------------------------------------------------------------------
+# 996015 - Backup or database dump file access
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Backup or Database Dump File Access"; flow:established,to_server; http.uri; pcre:"/\.(bak|backup|old|orig|save|swp|sql|dump|sqlite|db|mdb|tar\.gz|tar\.bz2|tgz|7z|rar)(\?|$)/i"; classtype:web-application-activity; sid:996015; rev:1; metadata:mitre_technique T1530;)
+
+# -------------------------------------------------------------------------
+# 996016 - Source control artifact access
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Source Control Artifact Access"; flow:established,to_server; http.uri; pcre:"/(\/\.git(\/|$)|\/\.svn\/|\/\.hg\/|\/\.gitignore|\/\.gitattributes|\/\.gitmodules)/i"; classtype:web-application-activity; sid:996016; rev:1; metadata:mitre_technique T1213;)
+
+# -------------------------------------------------------------------------
+# 996017 - Application log file access
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Application Log File Access"; flow:established,to_server; http.uri; pcre:"/\/(error|access|debug|app|application|server|system|audit|exception)\.(log|txt|out)(\?|$)/i"; classtype:web-application-activity; sid:996017; rev:1; metadata:mitre_technique T1083;)
+
+# -------------------------------------------------------------------------
+# 996018 - Directory enumeration (frequency: 10 sensitive path probes in 60s)
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Directory Enumeration Detected"; flow:established,to_server; http.uri; pcre:"/(\/\.env$|\/\.git|\/wp-admin|\/phpmyadmin|\/admin\.php|\/config\.php|\/backup)/i"; threshold:type threshold, track by_src, count 10, seconds 60; classtype:web-application-attack; sid:996018; rev:1; metadata:mitre_technique T1595.001;)
+
+# -------------------------------------------------------------------------
+# 996019 - Aggressive scanning (frequency: 8 path traversal attempts in 60s)
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Aggressive Scanning Repeated Path Traversal"; flow:established,to_server; http.uri.raw; pcre:"/(\.\.\x2f|\.\.\\\\|%2e%2e|%252e%252e)/i"; threshold:type threshold, track by_src, count 8, seconds 60; classtype:web-application-attack; sid:996019; rev:1; metadata:mitre_technique T1110;)
+
+# -------------------------------------------------------------------------
+# 996020 - Request for suspicious filename
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Request for Suspicious Filename"; flow:established,to_server; http.uri; pcre:"/\/(password|passwd|secret|confidential|credential|private|token|apikey|api[_\-]key|auth)[^\/]*(\.[a-z]{1,5})?$/i"; classtype:web-application-activity; sid:996020; rev:1; metadata:mitre_technique T1083;)
+
+# -------------------------------------------------------------------------
+# 996021 - Authentication endpoint access
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Authentication Endpoint Access"; flow:established,to_server; http.uri; pcre:"/\/(login|signin|sign-in|logon|auth|authenticate|wp-login\.php|admin\/login|account\/login|session\/new|user\/login|api\/login|api\/auth|oauth\/token|token)(\/|\?|$)/i"; classtype:web-application-activity; sid:996021; rev:1; metadata:mitre_technique T1110;)
+
+# -------------------------------------------------------------------------
+# 996022 - Brute force on auth endpoint (frequency: 10 hits in 60s from same IP)
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Possible Brute Force on Auth Endpoint"; flow:established,to_server; http.uri; pcre:"/\/(login|signin|sign-in|logon|auth|authenticate|wp-login\.php|admin\/login|account\/login|session\/new|user\/login|api\/login|api\/auth|oauth\/token|token)(\/|\?|$)/i"; threshold:type threshold, track by_src, count 10, seconds 60; classtype:web-application-attack; sid:996022; rev:1; metadata:mitre_technique T1110;)
+
+# -------------------------------------------------------------------------
+# 996023 - Encoding evasion / WAF bypass
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Encoding Evasion or WAF Bypass Attempt"; flow:established,to_server; http.uri.raw; pcre:"/(%c0%ae|%c0%2f|%c1%9c|%uff0e|%u2215|%u002f|%252f|%255c|\.\.%ef%bc%8f|\.\.%c0%af)/i"; classtype:web-application-attack; sid:996023; rev:1; metadata:mitre_technique T1027;)
+
+# -------------------------------------------------------------------------
+# 996024 - LFI/RFI file inclusion
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: LFI or RFI File Inclusion Attempt"; flow:established,to_server; http.uri.raw; pcre:"/(php:\/\/|phar:\/\/|data:\/\/|expect:\/\/|zip:\/\/|glob:\/\/|file:\/\/|gopher:\/\/|dict:\/\/|\.(php|phtml|phar)\b.*=)/i"; classtype:web-application-attack; sid:996024; rev:1; metadata:mitre_technique T1190;)
+
+# -------------------------------------------------------------------------
+# 996025 - SSRF targeting internal resources
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: SSRF Attempt Targeting Internal Resource"; flow:established,to_server; http.uri.raw; pcre:"/(169\.254\.169\.254|metadata\.google\.internal|metadata\/instance|169\.254\.170\.2|100\.100\.100\.200|[?&][^&]*=https?:\/\/(127\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.|localhost)|[?&][^&]*=https?:\/\/[^\/]*\.(internal|local|corp|intranet))/i"; classtype:web-application-attack; sid:996025; rev:1; metadata:mitre_technique T1090;)
+
+# -------------------------------------------------------------------------
+# 996026 - GraphQL introspection or API schema probe
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: GraphQL Introspection or API Schema Probe"; flow:established,to_server; http.uri; pcre:"/(\/graphql|\/graphiql|\/gql|__schema|__type|__typename|introspectionquery)/i"; classtype:web-application-activity; sid:996026; rev:1; metadata:mitre_technique T1595.002;)
+
+# -------------------------------------------------------------------------
+# 996027 - Unusual or dangerous HTTP method
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Unusual or Dangerous HTTP Method"; flow:established,to_server; http.method; pcre:"/^(CONNECT|DEBUG|MOVE|COPY|PROPFIND|PROPPATCH|MKCOL|LOCK|UNLOCK|BREW|TEST|FUZZ|SEARCH|PURGE)$/"; classtype:web-application-attack; sid:996027; rev:1; metadata:mitre_technique T1190;)
+
+# -------------------------------------------------------------------------
+# 996028 - Suspicious User-Agent (empty placeholder or oversized)
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Suspicious User-Agent Empty or Oversized"; flow:established,to_server; http.user_agent; pcre:"/^(\[\]|''|-)$|^.{500,}/"; classtype:web-application-activity; sid:996028; rev:1; metadata:mitre_technique T1036;)
+
+# -------------------------------------------------------------------------
+# 996029 - Dangerous file upload (web shell / executable)
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Dangerous File Upload Attempt"; flow:established,to_server; http.uri; pcre:"/(\/upload|\/uploads|\/files|\/media|\/assets|\/static)[^?]*\.(php[0-9]?|phtml|phar|asp|aspx|jsp|jspx|cfm|cgi|pl|py|rb|sh|exe|dll|bat|cmd|vbs|ps1)/i"; classtype:web-application-attack; sid:996029; rev:1; metadata:mitre_technique T1190;)
+
+# -------------------------------------------------------------------------
+# 996030 - Oversized URI (possible fuzzing)
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Oversized URI Possible Fuzzing"; flow:established,to_server; http.uri; pcre:"/^.{1000,}/"; classtype:web-application-activity; sid:996030; rev:1; metadata:mitre_technique T1595.002;)
+
+# -------------------------------------------------------------------------
+# 996031 - Double extension upload bypass
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Double Extension Upload Bypass Attempt"; flow:established,to_server; http.uri; pcre:"/(\/upload|\/uploads|\/files|\/media|\/assets|\/static)[^?]*\.(php[0-9]?|phtml|phar|asp|aspx|jsp|jspx|cfm|cgi|pl|py|rb|sh|exe|dll|bat|cmd|vbs|ps1)\.[a-z]{2,4}(\?|$)/i"; classtype:web-application-attack; sid:996031; rev:1; metadata:mitre_technique T1190;)
+
+# -------------------------------------------------------------------------
+# 996032 - Archive or macro-enabled file upload
+# -------------------------------------------------------------------------
+alert http any any -> any any (msg:"Caddy: Archive or Macro-Enabled File Upload"; flow:established,to_server; http.uri; pcre:"/(\/upload|\/uploads|\/files|\/media|\/assets|\/static)[^?]*\.(zip|rar|7z|tar|gz|tgz|iso|img|docm|xlsm|pptm|xlam|svg)(\?|$)/i"; classtype:web-application-activity; sid:996032; rev:1; metadata:mitre_technique T1566.001;)
