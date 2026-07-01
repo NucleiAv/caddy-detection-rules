@@ -30,7 +30,7 @@ On this box it's `/var/log/suricata/`. Keep that in mind, it comes up later.
 Before doing anything with traffic, check that Suricata can actually parse the rule file. The `-T` flag runs Suricata in test mode, it loads the config and rules, then exits without capturing anything.
 
 ```bash
-suricata -T -c /etc/suricata/suricata.yaml -S /media/sf_wazuh/ids/suricata/caddy.rules -v
+suricata -T -c /etc/suricata/suricata.yaml -S /path/to/suricata/caddy.rules -v
 ```
 
 First attempt without `sudo` failed:
@@ -42,7 +42,7 @@ Error: suricata: The logging directory "/var/log/suricata/" supplied by /etc/sur
 Suricata still needs to open its log files even in test mode, and a normal user can't write to `/var/log/suricata/`. Fix is simple, just run it with `sudo`:
 
 ```bash
-sudo suricata -T -c /etc/suricata/suricata.yaml -S /media/sf_wazuh/ids/suricata/caddy.rules -v
+sudo suricata -T -c /etc/suricata/suricata.yaml -S /path/to/suricata/caddy.rules -v
 ```
 
 That's basically the standard pattern for this whole project: try it plain first, if it complains about permissions, add `sudo`.
@@ -188,7 +188,7 @@ This first attempt (see below for the corrected version) was missing 5 detection
 This is the offline test, feed the saved pcap back into Suricata and see what fires, without needing a live server or live traffic.
 
 ```bash
-suricata -r caddy_test.pcap -S /media/sf_wazuh/ids/suricata/caddy.rules -l /tmp/suricata-output/ -k none
+suricata -r caddy_test.pcap -S /path/to/suricata/caddy.rules -l /tmp/suricata-output/ -k none
 ```
 
 First run failed:
@@ -201,7 +201,7 @@ Suricata will not create the log folder for you, `mkdir` it first, then run agai
 
 ```bash
 mkdir -p /tmp/suricata-output/
-sudo suricata -r caddy_test.pcap -S /media/sf_wazuh/ids/suricata/caddy.rules -l /tmp/suricata-output/ -k none
+sudo suricata -r caddy_test.pcap -S /path/to/suricata/caddy.rules -l /tmp/suricata-output/ -k none
 ```
 
 Note on `-k none`: this tells Suricata to skip checksum validation. Loopback-captured packets often have invalid or zero checksums since the kernel skips real checksum calculation for local traffic, so without `-k none` Suricata may treat those packets as corrupt and drop them from inspection.
@@ -263,7 +263,7 @@ Testing against a saved pcap only proves the rules are written correctly. It doe
 First attempt, straight onto the machine's real interface:
 
 ```bash
-sudo suricata -c /etc/suricata/suricata.yaml -S /media/sf_wazuh/ids/suricata/caddy.rules -i eth0
+sudo suricata -c /etc/suricata/suricata.yaml -S /path/to/suricata/caddy.rules -i eth0
 ```
 
 This ran fine but caught 0 packets:
@@ -279,7 +279,7 @@ Two ways to actually test live capture properly:
 **A) Capture on `lo` instead**, since that's where same-machine traffic really flows:
 
 ```bash
-sudo suricata -c /etc/suricata/suricata.yaml -S /media/sf_wazuh/ids/suricata/caddy.rules -i lo
+sudo suricata -c /etc/suricata/suricata.yaml -S /path/to/suricata/caddy.rules -i lo
 ```
 
 You'll likely see a warning like this, it's harmless:
@@ -305,7 +305,7 @@ python3 -m http.server 8080
 **Terminal 2, Suricata watching the interface:**
 
 ```bash
-sudo suricata -c /etc/suricata/suricata.yaml -S /media/sf_wazuh/ids/suricata/caddy.rules -i lo
+sudo suricata -c /etc/suricata/suricata.yaml -S /path/to/suricata/caddy.rules -i lo
 ```
 
 **Terminal 3, fire the traffic:**
