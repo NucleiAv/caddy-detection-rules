@@ -1,6 +1,6 @@
 # Suricata + Caddy Rules - Testing Notes
 
-This folder holds a custom Suricata ruleset written for a Caddy web server (`caddy.rules`), plus everything used to test it: a saved pcap, a traffic generator script, and a raw log of every command run while figuring this out (`suricata-testing.txt`).
+This folder holds a custom Suricata ruleset written for a Caddy web server (`caddy.rules`), plus everything used to test it: a saved pcap, a traffic generator script, and a raw log of every command run while figuring this out (`suricata-testing.txt`), which is obviously not in this repo lol :).
 
 This README is the clean version of that log. It covers install, how the rules were validated, how the test pcap was made, how detection was checked both offline (pcap replay) and live (real interface capture), and every mistake hit along the way so the same ones don't happen twice.
 
