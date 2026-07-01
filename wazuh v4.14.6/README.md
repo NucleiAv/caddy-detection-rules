@@ -3,6 +3,51 @@
 Wazuh decoder and detection rules for the Caddy web server.
 
 Caddy is a modern open-source web server with automatic HTTPS. This ruleset parses its structured JSON access logs and detects common web attacks, reconnaissance activity, and anomalous behavior.
+A working v4.14.6 implementation exists here. It includes a parent/child XML decoder pair and 29 detection rules (IDs 996000-996032) covering path traversal, SQL injection, XSS, command injection, Log4Shell JNDI injection, LFI/RFI file inclusion, SSRF, scanner user-agents, sensitive file and credential access, source control artifact access, encoding evasion, dangerous file uploads, double extension bypass, GraphQL introspection, brute force correlation, and directory enumeration. All rules use PCRE2 matching and are MITRE ATT&CK mapped. This repo includes a caddy.ini test file with 26 passing unit tests via runtests.py (3 frequency-based rules are excluded per convention as they require live traffic).
+
+For v5.0, I spun up the beta2 Docker deployment, read the documentation for beta v5.0 and inspected the running manager to understand the new format. I also referred to [Issue #18806](https://github.com/wazuh/wazuh/issues/18806). Decoders are now stored as JSON assets at `/var/wazuh-manager/data/ruleset/` and follow a `name / parents / check / normalize` structure using ECS field names (confirmed by reading the built-in Apache and CloudTrail decoders). The v5.0 GitHub repo (`v5.0.0-beta2` branch) no longer contains decoder or rule source files in the `ruleset/` directory. No `wazuh-logtest` binary or `/logtest` API endpoint exists in beta2, so live testing of custom decoders is not currently possible. Based on the compiled decoder format observed in the running container, a reference v5.0 decoder for Caddy would look like:
+```json
+{
+  "name": "decoder/caddy-access/0",
+  "parents": ["decoder/core-wazuh-message/0"],
+  "check": "string_equal($_tmp_json.logger, 'http.log.access')",
+  "normalize": [
+    {
+      "map": [
+        {"event.kind": "event"},
+        {"event.category": "array_append(web)"},
+        {"event.type": "array_append(access)"},
+        {"event.action": "http-request"},
+        {"event.dataset": "caddy-access"},
+        {"service.type": "caddy"},
+        {"source.ip": "$_tmp_json.request.remote_ip"},
+        {"source.address": "$_tmp_json.request.remote_ip"},
+        {"http.request.method": "$_tmp_json.request.method"},
+        {"url.original": "$_tmp_json.request.uri"},
+        {"destination.domain": "$_tmp_json.request.host"},
+        {"http.response.status_code": "$_tmp_json.status"},
+        {"http.response.body.bytes": "$_tmp_json.size"},
+        {"event.duration": "$_tmp_json.duration"},
+        {"network.protocol": "$_tmp_json.request.proto"},
+        {"user_agent.original": "$_tmp_json.request.headers.User-Agent.0"}
+      ]
+    },
+    {
+      "check": "int_less($http.response.status_code, 400)",
+      "map": [{"event.outcome": "success"}]
+    },
+    {
+      "check": "int_greater_or_equal($http.response.status_code, 400)",
+      "map": [{"event.outcome": "failure"}]
+    },
+    {
+      "map": [{"_tmp_json": "delete()"}]
+    }
+  ],
+  "enabled": true
+}
+```
+So the decoder and rules are for wazuh 4.14.6
 
 ## What it detects
 
@@ -188,7 +233,3 @@ Expected output:
 - Rules 996018, 996019, and 996022 are frequency-based (brute force / repeated scanning correlation). They require multiple matching events within a time window and cannot be triggered with a single log line in wazuh-logtest.
 - The `status` field is reserved by Wazuh and cannot be used in custom rules. Status-based detection (4xx, 5xx) is not supported.
 - All patterns use PCRE2 (`type="pcre2"`) for proper literal dot matching and case-insensitive flags.
-
-## License
-
-GPLv2. See the license header in each file.
