@@ -6,3 +6,6 @@ The readme for caddy suricata rules is [Caddy-Suricata-Readme](https://github.co
 
 ## Wazuh
 The readme for caddy wazuh rules is [Caddy-Wazuh-Readme](https://github.com/NucleiAv/caddy-detection-rules/blob/main/wazuh%20v4.14.6/README.md)
+
+## Snort
+The readme for caddy snort rules is [Caddy-Snort-Readme](https://github.com/NucleiAv/caddy-detection-rules/blob/main/snort/README.md)
